@@ -2,6 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import App from './App'
+import { AppRoutes } from './enums/Routes'
 import './index.css'
 import { CreateAccountPage } from './routes/CreateAccountPage'
 import { HomePage } from './routes/HomePage'
@@ -10,25 +11,25 @@ import { WelcomePage } from './routes/WelcomePage'
 
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: AppRoutes.ROOT,
     element: <App />,
     children: [
       {
-        path: 'home',
+        path: AppRoutes.HOME,
         element: <HomePage />,
       },
     ],
   },
   {
-    path: '/welcome',
+    path: AppRoutes.WELCOME,
     element: <WelcomePage />,
   },
   {
-    path: '/login',
+    path: AppRoutes.LOGIN,
     element: <LoginPage />,
   },
   {
-    path: '/create-account',
+    path: AppRoutes.CREATE_ACCOUNT,
     element: <CreateAccountPage />,
   },
 ])
