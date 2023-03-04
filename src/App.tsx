@@ -1,6 +1,7 @@
 import { User } from 'firebase/auth'
 import { useEffect, useState } from 'react'
 import { Outlet, useNavigate } from 'react-router-dom'
+import { Toolbar } from './component/ui/Toolbar'
 import { AuthContext } from './context/AuthContext'
 import { firebaseAuth } from './Firebase'
 
@@ -23,7 +24,14 @@ function App() {
     return unsuscribe
   }, [])
 
-  return <AuthContext.Provider value={user}>{user !== null && <Outlet />}</AuthContext.Provider>
+  return (
+    <AuthContext.Provider value={user}>
+      <div className='flex flex-col justify-between w-full h-screen'>
+        {user !== null && <Outlet />}
+        <Toolbar />
+      </div>
+    </AuthContext.Provider>
+  )
 }
 
 export default App
