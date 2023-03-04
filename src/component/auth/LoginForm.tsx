@@ -34,7 +34,7 @@ export const LoginForm = ({ isCreatingAccount = false }: LoginFormProps) => {
         authService
           .createAccount(userLogin)
           .then(() => {
-            navigate('/')
+            navigate('/home')
           })
           .catch((error: AuthError) => {
             const firebaseError = error.code as keyof typeof FirebaseLoginError
@@ -48,7 +48,7 @@ export const LoginForm = ({ isCreatingAccount = false }: LoginFormProps) => {
         authService
           .logInWithPasswordAndEmail(userLogin)
           .then(() => {
-            navigate('/')
+            navigate('/home')
           })
           .catch((error: AuthError) => {
             const firebaseError = error.code as keyof typeof FirebaseLoginError
