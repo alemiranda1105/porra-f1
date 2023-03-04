@@ -11,26 +11,19 @@ function App() {
   useEffect(() => {
     const unsuscribe = () => {
       firebaseAuth.onAuthStateChanged((firebaseUser) => {
-        setUser(firebaseUser)
+        if (firebaseUser) {
+          setUser(firebaseUser)
+          navigate('/home')
+        } else {
+          navigate('/welcome')
+        }
       })
     }
 
     return unsuscribe
   }, [])
 
-  useEffect(() => {
-    if (user === null) {
-      navigate('/login')
-    } else {
-      navigate('/home')
-    }
-  }, [user])
-
-  return (
-    <div>
-      <AuthContext.Provider value={user}>{user !== null && <Outlet />}</AuthContext.Provider>
-    </div>
-  )
+  return <AuthContext.Provider value={user}>{user !== null && <Outlet />}</AuthContext.Provider>
 }
 
 export default App

@@ -1,25 +1,29 @@
 export const LoginError = {
-  NO_DATA: 'Please, write your email/password',
-  APP_DELETED: 'The instance of FirebaseApp has been deleted.',
+  NO_DATA: 'Por favor, ingresa tus datos correctamente',
+  APP_DELETED: 'La instancia de FirebaseApp ha sido eliminada.',
   APP_NOT_AUTHORIZED:
-    'The app is not authorized to use Firebase Authentication with the provided API key.',
-  ARGUMENT_ERROR: 'Incorrect arguments were provided.',
-  INVALID_API_KEY: 'The provided API key is invalid.',
-  INVALID_USER_TOKEN: "The user's credential is no longer valid. Please sign in again.",
-  INVALID_TENANT_ID: 'The provided tenant ID is invalid.',
-  NETWORK_REQUEST_FAILED: 'A network error has occurred. Please check your internet connection.',
-  OPERATION_NOT_ALLOWED: 'The requested operation is not allowed.',
-  REQUIRES_RECENT_LOGIN: 'Please sign in again to complete this action.',
+    'La aplicación no está autorizada para usar Firebase Authentication con la clave API proporcionada.',
+  ARGUMENT_ERROR: 'Se proporcionaron argumentos incorrectos.',
+  INVALID_API_KEY: 'La clave API proporcionada no es válida.',
+  INVALID_USER_TOKEN:
+    'Las credenciales del usuario ya no son válidas. Por favor, inicia sesión de nuevo.',
+  INVALID_TENANT_ID: 'El ID de inquilino proporcionado no es válido.',
+  NETWORK_REQUEST_FAILED:
+    'Ha ocurrido un error de red. Por favor, verifica tu conexión a Internet.',
+  OPERATION_NOT_ALLOWED: 'La operación solicitada no está permitida.',
+  REQUIRES_RECENT_LOGIN: 'Por favor, inicia sesión de nuevo para completar esta acción.',
   TOO_MANY_REQUESTS:
-    'Requests are blocked from this device due to unusual activity. Please try again later.',
+    'Las solicitudes están bloqueadas en este dispositivo debido a una actividad inusual. Por favor, inténtalo de nuevo más tarde.',
   UNAUTHORIZED_DOMAIN:
-    'The app domain is not authorized for OAuth operations. Please check the authorized domains in Firebase console.',
-  USER_DISABLED: 'The user account has been disabled by an administrator.',
-  USER_NOT_FOUND: 'User not found. Please check your email and password and try again',
-  USER_TOKEN_EXPIRED: "The user's credential has expired. Please sign in again.",
+    'El dominio de la aplicación no está autorizado para operaciones OAuth. Por favor, revisa los dominios autorizados en Firebase console.',
+  USER_DISABLED: 'La cuenta de usuario ha sido deshabilitada por un administrador.',
+  USER_NOT_FOUND:
+    'Usuario no encontrado. Por favor, verifica tu correo electrónico y contraseña y vuelve a intentarlo.',
+  USER_TOKEN_EXPIRED:
+    'Las credenciales del usuario han caducado. Por favor, inicia sesión de nuevo.',
   WEB_STORAGE_UNSUPPORTED:
-    'Web storage is not supported in this browser. Please try again in a different browser or enable web storage.',
-  UNKOWN_ERROR: 'Something went wrong, please try later',
+    'El almacenamiento web no es compatible con este navegador. Por favor, intenta de nuevo en un navegador diferente o habilita el almacenamiento web.',
+  UNKOWN_ERROR: 'Algo salió mal. Por favor, inténtalo más tarde.',
 }
 
 export const FirebaseLoginError = {

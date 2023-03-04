@@ -1,14 +1,22 @@
 import { AuthError } from 'firebase/auth'
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { FirebaseLoginError, LoginError } from '../../enums/LoginError'
-import { logInWithPasswordAndEmail } from '../../service/AuthService'
+import { AuthService } from '../../service/AuthService'
 import { UserLogin } from '../../types/UserLogin'
 
-export const LoginForm = () => {
+interface LoginFormProps {
+  isCreatingAccount?: boolean
+}
+
+export const LoginForm = ({ isCreatingAccount = false }: LoginFormProps) => {
+  const authService = new AuthService()
+  const navigate = useNavigate()
   const [error, setError] = useState('')
   const [userLogin, setUserLogin] = useState<UserLogin>({
     email: '',
     password: '',
+    username: '',
   })
 
   const handleFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -21,13 +29,34 @@ export const LoginForm = () => {
     e.preventDefault()
     e.stopPropagation()
 
-    if (userLogin.email && userLogin.password) {
-      logInWithPasswordAndEmail(userLogin).catch((error: AuthError) => {
-        const firebaseError = error.code as keyof typeof FirebaseLoginError
-        setError(FirebaseLoginError[firebaseError] ?? LoginError.UNKOWN_ERROR)
-      })
+    if (isCreatingAccount) {
+      if (userLogin.email && userLogin.password && userLogin.username) {
+        authService
+          .createAccount(userLogin)
+          .then(() => {
+            navigate('/')
+          })
+          .catch((error: AuthError) => {
+            const firebaseError = error.code as keyof typeof FirebaseLoginError
+            setError(FirebaseLoginError[firebaseError] ?? LoginError.UNKOWN_ERROR)
+          })
+      } else {
+        setError(LoginError.NO_DATA)
+      }
     } else {
-      setError(LoginError.NO_DATA)
+      if (userLogin.email && userLogin.password) {
+        authService
+          .logInWithPasswordAndEmail(userLogin)
+          .then(() => {
+            navigate('/')
+          })
+          .catch((error: AuthError) => {
+            const firebaseError = error.code as keyof typeof FirebaseLoginError
+            setError(FirebaseLoginError[firebaseError] ?? LoginError.UNKOWN_ERROR)
+          })
+      } else {
+        setError(LoginError.NO_DATA)
+      }
     }
   }
 
@@ -48,23 +77,41 @@ export const LoginForm = () => {
             name='email'
             id='email-txt'
             className='bg-white text-black rounded-lg p-1.5'
+            required
           />
         </div>
+        {isCreatingAccount && (
+          <div className='flex flex-col gap-2 w-full'>
+            <label htmlFor='username-txt' className='font-bold'>
+              Nombre de usuario
+            </label>
+            <input
+              onChange={handleFormChange}
+              placeholder='Nombre de usuario'
+              type='text'
+              name='username'
+              id='username-txt'
+              className='bg-white text-black rounded-lg p-1.5'
+              required
+            />
+          </div>
+        )}
         <div className='flex flex-col gap-2 w-full'>
           <label htmlFor='password-txt' className='font-bold'>
-            Password
+            Contraseña
           </label>
           <input
             onChange={handleFormChange}
-            placeholder='Password'
+            placeholder='Contraseña'
             type='password'
             name='password'
             id='password-txt'
             className='bg-white text-black rounded-lg p-1.5'
+            required
           />
         </div>
         <button type='submit' className='bg-red-800 w-full p-3 rounded-lg m-2'>
-          Login
+          {isCreatingAccount ? 'Crear cuenta' : 'Iniciar sesión'}
         </button>
         {error && <p className='font-light'>{error}</p>}
       </form>
